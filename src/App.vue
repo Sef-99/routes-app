@@ -1,5 +1,6 @@
 <script setup>
 import { RouterView } from "vue-router";
+import NavBar from "./modules/shared/NavBar.vue";
 </script>
 
 <template>
@@ -12,11 +13,7 @@ import { RouterView } from "vue-router";
       height="125"
     />
   </header>
-  <nav>
-    <RouterLink to="/">Go to Home</RouterLink>
-    <RouterLink to="/about">Go to About</RouterLink>
-    <RouterLink to="/pokemon">Go to Pokemon</RouterLink>
-  </nav>
+  <NavBar />
   <RouterView />
 </template>
 
