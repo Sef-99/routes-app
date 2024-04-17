@@ -1,6 +1,7 @@
 <script setup>
 import { RouterView } from 'vue-router';
 import NavBar from './modules/shared/NavBar.vue';
+import PokemonLayoutVue from './modules/pokemon/layout/PokemonLayout.vue';
 </script>
 
 <template>
@@ -14,7 +15,7 @@ import NavBar from './modules/shared/NavBar.vue';
     />
   </header>
   <NavBar />
-  <RouterView />
+  <router-view />
 </template>
 
 <style scoped>

@@ -3,31 +3,46 @@ import { createWebHashHistory, createRouter } from 'vue-router';
 const routes = [
   {
     path: '/',
-    name: 'home',
-    component: () =>
-      import(
-        /* webpackChunkName: "PokemonListPage" */ '@/modules/pokemon/pages/ListPage.vue'
-      ),
+    redirect: '/pokemon',
   },
+
   {
-    path: '/about',
-    name: 'about',
+    path: '/pokemon',
+    name: 'pokemon',
     component: () =>
       import(
-        /* webpackChunkName: "PokemonAboutPage" */ '@/modules/pokemon/pages/AboutPage.vue'
+        /* webpackChunkName: "PokemonLayout" */ '@/modules/pokemon/layout/PokemonLayout.vue'
       ),
-  },
-  {
-    path: '/pokemon/:id',
-    name: 'pokemonDetails',
-    component: () =>
-      import(
-        /* webpackChunkName: "PokemonPage" */ '@/modules/pokemon/pages/PokemonPage.vue'
-      ),
-    props: (route) => {
-      const id = Number(route.params.id);
-      return isNaN(id) ? { id: 1 } : { id };
-    },
+    children: [
+      {
+        path: 'home',
+        name: 'pokemon-home',
+        component: () =>
+          import(
+            /* webpackChunkName: "ListPage" */ '@/modules/pokemon/pages/ListPage.vue'
+          ),
+      },
+      {
+        path: 'about',
+        name: 'pokemon-about',
+        component: () =>
+          import(
+            /* webpackChunkName: "AboutPage" */ '@/modules/pokemon/pages/AboutPage.vue'
+          ),
+      },
+      {
+        path: ':id',
+        name: 'pokemon-id',
+        component: () =>
+          import(
+            /* webpackChunkName: "PokemonPage" */ '@/modules/pokemon/pages/PokemonPage.vue'
+          ),
+        props: (route) => {
+          const id = Number(route.params.id);
+          return isNaN(id) ? { id: 1 } : { id };
+        },
+      },
+    ],
   },
   {
     path: '/:pathMatch(.*)*',

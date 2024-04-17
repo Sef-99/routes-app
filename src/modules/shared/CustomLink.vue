@@ -8,8 +8,8 @@
       >{{ link.name }}</a
     >
 
-    <router-link v-else :to="link.to" v-slot="{ href, isActive }">
-      <a :href="href" :class="isActive ? 'is-active' : 'normal-link'">
+    <router-link v-else :to="link.to" v-slot="{ isActive }">
+      <a :class="isActive ? 'is-active' : 'normal-link'">
         {{ link.name }}
       </a>
     </router-link>
