@@ -1,38 +1,43 @@
-import { createMemoryHistory, createRouter } from "vue-router";
+import { createWebHashHistory, createRouter } from 'vue-router';
 
 const routes = [
   {
-    path: "/",
+    path: '/',
     component: () =>
       import(
-        /* webpackChunkName: "PokemonListPage" */ "@/modules/pokemon/pages/ListPage.vue"
+        /* webpackChunkName: "PokemonListPage" */ '@/modules/pokemon/pages/ListPage.vue'
       ),
   },
   {
-    path: "/about",
+    path: '/about',
     component: () =>
       import(
-        /* webpackChunkName: "PokemonAboutPage" */ "@/modules/pokemon/pages/AboutPage.vue"
+        /* webpackChunkName: "PokemonAboutPage" */ '@/modules/pokemon/pages/AboutPage.vue'
       ),
   },
   {
-    path: "/pokemon",
+    path: '/:id',
+    name: 'Pokemon Details',
     component: () =>
       import(
-        /* webpackChunkName: "PokemonPage" */ "@/modules/pokemon/pages/PokemonPage.vue"
+        /* webpackChunkName: "PokemonPage" */ '@/modules/pokemon/pages/PokemonPage.vue'
       ),
+    props: (route) => {
+      const id = Number(route.params.id);
+      return isNaN(id) ? { id: 1 } : { id };
+    },
   },
   {
-    path: "/:pathMatch(.*)*",
+    path: '/:pathMatch(.*)*',
     component: () =>
       import(
-        /* webpackChunkName: "NotFound" */ "@/modules/shared/NotFound.vue"
+        /* webpackChunkName: "NotFound" */ '@/modules/shared/NotFound.vue'
       ),
   },
 ];
 
 const router = createRouter({
-  history: createMemoryHistory(),
+  history: createWebHashHistory(),
   routes,
 });
 
