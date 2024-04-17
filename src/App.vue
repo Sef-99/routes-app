@@ -1,7 +1,5 @@
 <script setup>
-import PokemonPageVue from './modules/pokemon/pages/PokemonPage.vue';
-import aboutPage from './modules/pokemon/pages/aboutPage.vue';
-import listPageVue from './modules/pokemon/pages/listPage.vue';
+import { RouterView } from "vue-router";
 </script>
 
 <template>
@@ -14,6 +12,12 @@ import listPageVue from './modules/pokemon/pages/listPage.vue';
       height="125"
     />
   </header>
+  <nav>
+    <RouterLink to="/">Go to Home</RouterLink>
+    <RouterLink to="/about">Go to About</RouterLink>
+    <RouterLink to="/pokemon">Go to Pokemon</RouterLink>
+  </nav>
+  <RouterView />
 </template>
 
 <style scoped>
