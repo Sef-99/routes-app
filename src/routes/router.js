@@ -1,5 +1,21 @@
 import { createWebHashHistory, createRouter } from 'vue-router';
 
+const isAuthenticatedGuard = async (to, from, next) => {
+  // console.log({ to, from, next })
+
+  return new Promise(() => {
+    const random = Math.random() * 100;
+
+    if (random > 50) {
+      console.log('está autenticado');
+      next();
+    } else {
+      console.log('bloqueado por el isAuthenticatedGuard', random);
+      next({ name: 'pokemon-home' });
+    }
+  });
+};
+
 const routes = [
   {
     path: '/',
@@ -44,6 +60,39 @@ const routes = [
       },
     ],
   },
+
+  {
+    path: '/dragonball',
+    name: 'dragonball',
+    beforeEnter: [isAuthenticatedGuard],
+    component: () =>
+      import(
+        /* webpackChunkName: "DragonBallLayout" */ '@/modules/dragonball/layouts/DragonBallLayout.vue'
+      ),
+    children: [
+      {
+        path: 'characters',
+        name: 'dragonball-characters',
+        component: () =>
+          import(
+            /* webpackChunkName: "ListPage" */ '@/modules/dragonball/pages/Characters.vue'
+          ),
+      },
+      {
+        path: 'about',
+        name: 'dragonball-about',
+        component: () =>
+          import(
+            /* webpackChunkName: "ListPage" */ '@/modules/dragonball/pages/About.vue'
+          ),
+      },
+      {
+        path: '',
+        redirect: { name: 'dragonball-characters' },
+      },
+    ],
+  },
+
   {
     path: '/:pathMatch(.*)*',
     component: () =>
